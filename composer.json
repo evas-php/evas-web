@@ -1,12 +1,12 @@
 {
     "name": "evas-php/evas-web",
-    "description": "Web application module ",
+    "description": "Web application module",
     "type": "library",
-    "license": "MIT",
+    "license": "CC BY 4.0",
     "authors": [
         {
-            "name": "evasyakin",
-            "email": "e.vasyakin@itevas.ru"
+            "name": "Egor Vasyakin",
+            "email": "egor@evas-php.com"
         }
     ],
     "require": {}
