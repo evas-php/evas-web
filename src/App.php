@@ -154,6 +154,39 @@ class App extends BaseApp
     }
 
     /**
+     * Получение/установка базового хоста приложения.
+     * @param string|null хост
+     * @return string хост
+     */
+    public static function host(string $host = null): string
+    {
+        if ($host) static::setHost($host);
+        return static::getHost();
+    }
+
+    /**
+     * Получение/установка базового пути uri приложения.
+     * @param string|null путь
+     * @return string путь
+     */
+    public static function path(string $path = null): string
+    {
+        if ($path) static::setPath($path);
+        return static::getPath();
+    }
+
+    /**
+     * Получение/установка базового uri приложения.
+     * @param string|null uri
+     * @return string uri
+     */
+    public static function uri(string $uri = null): string
+    {
+        if ($uri) static::setUri($uri);
+        return static::getUri();
+    }
+
+    /**
      * Получение запроса.
      * @return Request
      */
