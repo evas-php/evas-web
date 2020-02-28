@@ -28,12 +28,25 @@ class Response extends HttpResponse
     }
 
     /**
+     * Применить код статуса.
+     * @param int|null код статуса
+     * @param string|null кастомный текст статуса
+     * @return self
+     */
+    public function applyStatusCode(int $code = null, string $statusText = null)
+    {
+        if ($code) $this->withStatusCode($code, $statusText);
+        header("HTTP/1.1 $this->statusCode $this->statusText");
+        return $this;
+    }
+
+    /**
      * Применение установленных заголовков.
      * @return self
      */
     public function applyHeaders()
     {
-        header("HTTP/1.1 $this->statusCode $this->statusText");
+        $this->applyStatusCode();
         foreach ($this->headers as $name => $value) {
             header("$name: $value");
         }
