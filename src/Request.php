@@ -40,7 +40,9 @@ class Request extends HttpRequest
         $headers = [];
         foreach ($_SERVER as $name => $value) {
             if (preg_match('/^HTTP_(.+)$/', $name, $matches)) {
-                $headers[$matches[1]] = $value;
+                $name = $matches[1];
+                if ('REFERRER' === $name) $name = 'referer';
+                $headers[$name] = $value;
             }
         }
         return $headers;
