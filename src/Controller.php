@@ -4,7 +4,7 @@
  */
 namespace Evas\Web;
 
-use Evas\Mvc\Controller as MvcController;
+use Evas\Router\Controller as RouterController;
 use Evas\Web\App;
 
 /**
@@ -12,7 +12,7 @@ use Evas\Web\App;
  * @author Egor Vasyakin <egor@evas-php.com>
  * @since 1.0
  */
-class Controller extends MvcController
+class Controller extends RouterController
 {
 	/**
      * @var RequestInterface
