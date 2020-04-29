@@ -9,6 +9,13 @@ use Evas\Web\Request;
 use Evas\Web\Response;
 
 /**
+ * Константы для свойств класса по умолчанию.
+ */
+if (!defined('EVAS_WEB_REQUEST_CLASS')) define('EVAS_WEB_REQUEST_CLASS', Request::class);
+if (!defined('EVAS_WEB_RESPONSE_CLASS')) define('EVAS_WEB_RESPONSE_CLASS', Response::class);
+
+
+/**
  * Класс веб-приложения.
  * @author Egor Vasyakin <egor@evas-php.com>
  * @since 1.0
@@ -16,48 +23,13 @@ use Evas\Web\Response;
 class App extends BaseApp
 {
     /**
-     * @var string хост приложения
-     */
-    protected $host;
-
-    /**
-     * @var string базовый uri приложения
-     */
-    protected $uri;
-
-    /**
-     * @var string базовый путь приложения относительно document_root
-     */
-    protected $path;
-
-    /**
-     * @var string имя класса запроса
-     */
-    protected $requestClass = Request::class;
-
-    /**
-     * @var string имя класса ответа
-     */
-    protected $responseClass = Response::class;
-
-    /**
-     * @var RequestInterface объект запроса
-     */
-    protected $request;
-
-    /**
-     * @var ResponseInterface объект ответа
-     */
-    protected $response;
-
-    /**
      * Установка хоста.
      * @param string
      * @return self
      */
     public static function setHost(string $host = null)
     {
-        return static::instanceSet('host', $host);
+        return static::set('host', $host);
     }
 
     /**
@@ -67,7 +39,7 @@ class App extends BaseApp
      */
     public static function setUri(string $uri = null)
     {
-        return static::instanceSet('uri', $uri);
+        return static::set('uri', $uri);
     }
 
     /**
@@ -77,7 +49,7 @@ class App extends BaseApp
      */
     public static function setPath(string $path = null)
     {
-        return static::instanceSet('path', $path);
+        return static::set('path', $path);
     }
 
     /**
@@ -87,7 +59,7 @@ class App extends BaseApp
      */
     public static function setRequestClass(string $requestClass)
     {
-        return static::instanceSet('requestClass', $requestClass);
+        return static::set('requestClass', $requestClass);
     }
 
     /**
@@ -97,7 +69,7 @@ class App extends BaseApp
      */
     public static function setResponseClass(string $responseClass)
     {
-        return static::instanceSet('responseClass', $responseClass);
+        return static::set('responseClass', $responseClass);
     }
 
 
@@ -121,10 +93,10 @@ class App extends BaseApp
      */
     public static function getPath(): string
     {
-        if (!static::instanceHas('path')) {
+        if (!static::has('path')) {
             static::setPath(static::calcPath());
         }
-        return static::instanceGet('path');
+        return static::get('path');
     }
 
     /**
@@ -133,10 +105,10 @@ class App extends BaseApp
      */
     public static function getHost(): string
     {
-        if (!static::instanceHas('host')) {
+        if (!static::has('host')) {
             static::setHost($_SERVER['SERVER_NAME']);
         }
-        return static::instanceGet('host');
+        return static::get('host');
     }
 
     /**
@@ -145,12 +117,11 @@ class App extends BaseApp
      */
     public static function getUri(): string
     {
-        if (!static::instanceHas('uri')) {
+        if (!static::has('uri')) {
             $protocol = !empty($_SERVER['HTTPS']) ? 'https' : 'http';
-            // static::$_uri = "$protocol://$host" . (empty($path) ? '/' : $path);
             static::setUri("$protocol://" . static::getHost() . static::getPath());
         }
-        return static::instanceGet('uri');
+        return static::get('uri');
     }
 
     /**
@@ -187,31 +158,55 @@ class App extends BaseApp
     }
 
     /**
+     * Получение имени класса запроса.
+     * @return string
+     */
+    public static function getRequestClass(): string
+    {
+        if (!static::has('requestClass')) {
+            static::set('requestClass', EVAS_WEB_REQUEST_CLASS);
+        }
+        return static::get('requestClass');
+    }
+
+    /**
+     * Получение имени класса ответа.
+     * @return string
+     */
+    public static function getResponseClass(): string
+    {
+        if (!static::has('responseClass')) {
+            static::set('responseClass', EVAS_WEB_RESPONSE_CLASS);
+        }
+        return static::get('responseClass');
+    }
+
+    /**
      * Получение запроса.
      * @return Request
      */
-    public static function request()
+    public static function request(): object
     {
-        if (!static::instanceHas('request')) {
-            $requestClass = static::instanceGet('requestClass');
+        if (!static::has('request')) {
+            $requestClass = static::getRequestClass();
             $request = (new $requestClass)
                 ->withUri(str_replace(static::getPath(), '', $_SERVER['REQUEST_URI']));
-            static::instanceSet('request', $request);
+            static::set('request', $request);
         }
-        return static::instanceGet('request');
+        return static::get('request');
     }
 
     /**
      * Получение ответа.
      * @return Response
      */
-    public static function response()
+    public static function response(): object
     {
-        if (!static::instanceHas('response')) {
-            $responseClass = static::instanceGet('responseClass');
+        if (!static::has('response')) {
+            $responseClass = static::getResponseClass();
             $response = new $responseClass;
-            static::instanceSet('response', $response);
+            static::set('response', $response);
         }
-        return static::instanceGet('response');
+        return static::get('response');
     }
 }
