@@ -1,6 +1,7 @@
 {
     "name": "evas-php/evas-web",
     "description": "Web application module",
+    "keywords": ["framework", "web", "web app", "http", "evas-php"],
     "type": "library",
     "license": "CC-BY-4.0",
     "authors": [
@@ -8,11 +9,6 @@
             "name": "Egor Vasyakin",
             "email": "egor@evas-php.com"
         }
-    ],
-    "repositories": [
-        {"type": "vcs", "url": "https://github.com/evas-php/evas-base"},
-        {"type": "vcs", "url": "https://github.com/evas-php/evas-http"},
-        {"type": "vcs", "url": "https://github.com/evas-php/evas-router"}
     ],
     "require": {
         "evas-php/evas-base": "*",
