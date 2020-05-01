@@ -15,8 +15,8 @@
         {"type": "vcs", "url": "https://github.com/evas-php/evas-router"}
     ],
     "require": {
-        "evas-php/evas-base": "dev-master",
-        "evas-php/evas-http": "dev-master",
-        "evas-php/evas-router": "dev-master"
+        "evas-php/evas-base": "*",
+        "evas-php/evas-http": "*",
+        "evas-php/evas-router": "*"
     }
 }
