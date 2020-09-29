@@ -15,14 +15,10 @@ use Evas\Web\App;
 class Response extends HttpResponse
 {
     /**
-     * Переопределение отправки ответа.
-     * @param int|null код статуса
-     * @param string|null тело
-     * @param array|null заголовки
+     * Реализация реальной отправка ответа.
      */
-    public function send(int $code = null, string $body = null, array $headers = null)
+    public function realSend()
     {
-        parent::send($code, $body, $headers);
         $this->applyHeaders();
         echo $this->getBody();
     }
