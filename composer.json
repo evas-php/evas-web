@@ -1,7 +1,8 @@
 {
     "name": "evas-php/evas-web",
     "description": "Web application module",
-    "keywords": ["framework", "web", "web app", "http", "evas-php"],
+    "keywords": ["framework", "web", "web app", "http", "web request", "web response", "evas-php"],
+    "version": "1.1",
     "type": "library",
     "license": "CC-BY-4.0",
     "authors": [
@@ -12,7 +13,6 @@
     ],
     "require": {
         "evas-php/evas-base": "*",
-        "evas-php/evas-http": "*",
-        "evas-php/evas-router": "*"
+        "evas-php/evas-http": "*"
     }
 }
