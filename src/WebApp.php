@@ -24,7 +24,7 @@ class WebApp extends BaseApp
      * @return static
      * @throws InvalidArgumentException
      */
-    public static function setUri($uri): WebApp
+    public static function setUri($uri): BaseApp
     {
         if (is_string($uri)) {
             $uri = new Uri($uri);
