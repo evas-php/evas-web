@@ -19,7 +19,7 @@ class WebRequest extends HttpRequest
         $request = self::createFromGlobals($this);
         if (($app = App::instance()) instanceof WebApp) {
             $request->withUri(
-                str_replace($app->uri()->getPath(), '', $request->getUri())
+                str_replace($app->uri()->getPath() ?? '', '', $request->getUri())
             );
             $app::set('request', $this);
         }
