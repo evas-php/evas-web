@@ -16,7 +16,7 @@ class WebResponse extends HttpResponse
     public function realSend()
     {
         $this->applyHeaders();
-        echo $this->getBody();
+        die($this->getBody());
     }
 
     /**
